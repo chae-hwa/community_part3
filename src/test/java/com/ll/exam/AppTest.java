@@ -1,5 +1,6 @@
 package com.ll.exam;
 
+import com.ll.exam.article.Repository.ArticleRepository;
 import com.ll.exam.article.Service.ArticleService;
 import com.ll.exam.article.controller.ArticleController;
 import com.ll.exam.home.controller.HomeController;
@@ -74,8 +75,17 @@ public class AppTest {
     public void articleController를_생성할_때_articleService도_같이_생성 (){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
         ArticleController articleController = Container.getObj(ArticleController.class);
 
-        ArticleService articleService = articleController.getArticleServiceForTest();
+        ArticleService articleService = Ut.reflection.getFieldValue(articleController, "articleService",null);
 
         assertThat(articleService).isNotNull();
+    }
+
+    @Test
+    public void articleService를_생성할_때_articleRepository도_같이_생성 (){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
+        ArticleService articleService = Container.getObj(ArticleService.class);
+
+        ArticleRepository articleRepository = Ut.reflection.getFieldValue(articleService, "articleRepository", null);
+
+        assertThat(articleRepository).isNotNull();
     }
 }
