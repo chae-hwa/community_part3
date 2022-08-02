@@ -1,5 +1,6 @@
 package com.ll.exam;
 
+import com.ll.exam.article.Service.ArticlSercive;
 import com.ll.exam.article.controller.ArticleController;
 import com.ll.exam.home.controller.HomeController;
 import org.junit.jupiter.api.Test;
@@ -52,6 +53,21 @@ public class AppTest {
         assertThat(names).contains("home");
         assertThat(names).contains("article");
         assertThat(names).contains("member");
+    }
+
+    @Test
+    public void ioc_articleService(){
+        ArticlSercive articlSercive = Container.getObj(ArticlSercive.class);
+
+        assertThat(articlSercive).isNotNull();
+    }
+
+    @Test
+    public void ioc_articleService__싱글톤(){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
+        HomeController articleService1 = Container.getObj(ArticlSercive.class);
+        HomeController articleService2 = Container.getObj(ArticlSercive.class);
+
+        assertThat(articleService2).isEqualTo(articleService1);
     }
 
 }
