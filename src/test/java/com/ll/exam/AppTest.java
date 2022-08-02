@@ -69,4 +69,13 @@ public class AppTest {
 
         assertThat(articleService2).isEqualTo(articleService1);
     }
+
+    @Test
+    public void articleController를_생성할_때_articleService도_같이_생성 (){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
+        ArticleController articleController = Container.getObj(ArticleController.class);
+
+        ArticleService articleService = articleController.getArticleServiceForTest();
+
+        assertThat(articleService).isNotNull();
+    }
 }
