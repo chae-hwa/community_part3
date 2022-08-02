@@ -18,8 +18,8 @@ public class Container {
         objects.put(ArticleController.class,new ArticleController());
         objects.put(HomeController.class, new HomeController());
     }
-    public static Object getObj(Class cls){
-        return objects.get(cls);
+    public static <T> T getObj(Class cls){
+        return (T)objects.get(cls);
     }
 
     public static List<String> getControllerNames() {
