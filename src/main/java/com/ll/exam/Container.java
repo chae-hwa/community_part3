@@ -15,8 +15,11 @@ public class Container {
     private static Map<Class, Object> objects;
     static {
         objects = new HashMap<>();
-        objects.put(ArticleController.class,new ArticleController());
-        objects.put(HomeController.class, new HomeController());
+
+        Reflections ref = new Reflections("com.ll.exam"); // com.ll.exam 하위 폴더를 싹 조사하겠다.
+        for (Class<?> cls : ref.getTypesAnnotatedWith(Controller.class)) { // cls를 얻어와서
+            objects.put(cls, Ut.cls.newObj(cls, null)); // cls를 키로 하고 객체도 objects에 넣겠다.
+        }
     }
     public static <T> T getObj(Class cls){
         return (T)objects.get(cls);
