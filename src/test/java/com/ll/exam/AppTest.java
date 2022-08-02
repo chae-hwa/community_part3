@@ -1,8 +1,8 @@
 package com.ll.exam;
 
-import com.ll.exam.article.Repository.ArticleRepository;
-import com.ll.exam.article.Service.ArticleService;
 import com.ll.exam.article.controller.ArticleController;
+import com.ll.exam.article.repository.ArticleRepository;
+import com.ll.exam.article.service.ArticleService;
 import com.ll.exam.home.controller.HomeController;
 import com.ll.exam.util.Ut;
 import org.junit.jupiter.api.Test;
@@ -14,20 +14,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest {
     @Test
-    public void junit_assertThat(){
+    public void junit_assertThat() {
         int rs = 10 + 20;
+
         assertThat(rs).isEqualTo(30);
     }
 
     @Test
-    public void ioc_articleController(){
+    public void ioc__articleController() {
         ArticleController articleController = Container.getObj(ArticleController.class);
 
         assertThat(articleController).isNotNull();
     }
 
     @Test
-    public void ioc_articleController__싱글톤(){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
+    public void ioc__articleController__싱글톤() {
         ArticleController articleController1 = Container.getObj(ArticleController.class);
         ArticleController articleController2 = Container.getObj(ArticleController.class);
 
@@ -35,14 +36,14 @@ public class AppTest {
     }
 
     @Test
-    public void ioc_homeController(){
+    public void ioc__homeController() {
         HomeController homeController = Container.getObj(HomeController.class);
 
         assertThat(homeController).isNotNull();
     }
 
     @Test
-    public void ioc_homeController__싱글톤(){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
+    public void ioc__homeController__싱글톤() {
         HomeController homeController1 = Container.getObj(HomeController.class);
         HomeController homeController2 = Container.getObj(HomeController.class);
 
@@ -50,23 +51,22 @@ public class AppTest {
     }
 
     @Test
-    public void ioc__Controller들을_스캔하여_수집(){ //Container가 controller의 이름을 찾아온다.
+    public void ioc__Controller들을_스캔하여_수집() {
         List<String> names = Container.getControllerNames();
 
         assertThat(names).contains("home");
         assertThat(names).contains("article");
-        assertThat(names).contains("member");
     }
 
     @Test
-    public void ioc_articleService(){
+    public void ioc__articleService() {
         ArticleService articleService = Container.getObj(ArticleService.class);
 
         assertThat(articleService).isNotNull();
     }
 
     @Test
-    public void ioc_articleService__싱글톤(){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
+    public void ioc__articleService__싱글톤() {
         ArticleService articleService1 = Container.getObj(ArticleService.class);
         ArticleService articleService2 = Container.getObj(ArticleService.class);
 
@@ -74,16 +74,16 @@ public class AppTest {
     }
 
     @Test
-    public void articleController를_생성할_때_articleService도_같이_생성 (){
+    public void articleController를_생성할때_articleService도_같이_생성() {
         ArticleController articleController = Container.getObj(ArticleController.class);
 
-        ArticleService articleService = Ut.reflection.getFieldValue(articleController, "articleService",null);
+        ArticleService articleService = Ut.reflection.getFieldValue(articleController, "articleService", null);
 
         assertThat(articleService).isNotNull();
     }
 
     @Test
-    public void articleService를_생성할_때_articleRepository도_같이_생성 (){
+    public void articleService를_생성할때_articleRepository도_같이_생성() {
         ArticleService articleService = Container.getObj(ArticleService.class);
 
         ArticleRepository articleRepository = Ut.reflection.getFieldValue(articleService, "articleRepository", null);
