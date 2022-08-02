@@ -7,26 +7,21 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Container {
-    private static final ArticleController articleController;
-    private static final HomeController homeController;
-
-    static { // 클래스가 로딩될 때 1번만 실행
-
-        articleController = Ut.cls.newObj(ArticleController.class, null); // newObj가 해당 클래스를 만들고 실패하면 null을 준다.
-        homeController = Ut.cls.newObj(HomeController.class, null);
-
-
+    private static Map<Class, Object> objects;
+    static {
+        objects = new HashMap<>();
+        objects.put(ArticleController.class,new ArticleController());
+        objects.put(HomeController.class, new HomeController());
     }
-    public static ArticleController getArticleController() {
-        return articleController; // 객체 재탕
+    public static Object getObj(Class cls){
+        return objects.get(cls);
     }
 
-    public static HomeController getHomeController() {
-        return homeController;
-    }
     public static List<String> getControllerNames() {
         List<String> names = new ArrayList<>();
 

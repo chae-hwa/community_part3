@@ -17,30 +17,30 @@ public class AppTest {
 
     @Test
     public void ioc_articleController(){
-        ArticleController articleController = Container.getArticleController();
+        ArticleController articleController = (ArticleController)Container.getObj(ArticleController.class);
 
         assertThat(articleController).isNotNull();
     }
 
     @Test
     public void ioc_articleController__싱글톤(){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
-        ArticleController articleController1 = Container.getArticleController();
-        ArticleController articleController2 = Container.getArticleController();
+        ArticleController articleController1 = (ArticleController)Container.getObj(ArticleController.class);
+        ArticleController articleController2 = (ArticleController)Container.getObj(ArticleController.class);
 
         assertThat(articleController2).isEqualTo(articleController1);
     }
 
     @Test
     public void ioc_homeController(){
-        HomeController homeController = Container.getHomeController();
+        HomeController homeController = (HomeController)Container.getObj(HomeController.class);
 
         assertThat(homeController).isNotNull();
     }
 
     @Test
     public void ioc_homeController__싱글톤(){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
-        HomeController homeController1 = Container.getHomeController();
-        HomeController homeController2 = Container.getHomeController();
+        HomeController homeController1 = (HomeController)Container.getObj(HomeController.class);
+        HomeController homeController2 = (HomeController)Container.getObj(HomeController.class);
 
         assertThat(homeController2).isEqualTo(homeController1);
     }
