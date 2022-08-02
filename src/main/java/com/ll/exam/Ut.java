@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Ut {
     public static class cls{
-        public static Object newObj(Class cls, Object defaultValue){ // 클래스가 들어오면
+        public static <T> T newObj(Class<T> cls, T defaultValue){ // 클래스가 들어오면
             try {
                 return cls.getDeclaredConstructor().newInstance(); // 그 안의 클래스 객체를 생성해준다.
             } catch (InstantiationException e) {

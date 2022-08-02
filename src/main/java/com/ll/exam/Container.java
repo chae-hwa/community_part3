@@ -14,9 +14,9 @@ public class Container {
     private static final HomeController homeController;
 
     static { // 클래스가 로딩될 때 1번만 실행
-        // Ut 클래스에서 객체 생성 후 형변환
-        articleController = (ArticleController)Ut.cls.newObj(ArticleController.class, null); // newObj가 해당 클래스를 만들고 실패하면 null을 준다.
-        homeController = (HomeController)Ut.cls.newObj(HomeController.class, null);
+
+        articleController = Ut.cls.newObj(ArticleController.class, null); // newObj가 해당 클래스를 만들고 실패하면 null을 준다.
+        homeController = Ut.cls.newObj(HomeController.class, null);
 
 
     }
