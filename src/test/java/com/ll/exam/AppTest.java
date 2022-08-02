@@ -7,6 +7,7 @@ import com.ll.exam.home.controller.HomeController;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -72,7 +73,7 @@ public class AppTest {
     }
 
     @Test
-    public void articleController를_생성할_때_articleService도_같이_생성 (){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
+    public void articleController를_생성할_때_articleService도_같이_생성 (){
         ArticleController articleController = Container.getObj(ArticleController.class);
 
         ArticleService articleService = Ut.reflection.getFieldValue(articleController, "articleService",null);
@@ -81,11 +82,23 @@ public class AppTest {
     }
 
     @Test
-    public void articleService를_생성할_때_articleRepository도_같이_생성 (){ // 객체를 2번 달라 했을 때 그 객체가 동일해야 된다.
+    public void articleService를_생성할_때_articleRepository도_같이_생성 (){
         ArticleService articleService = Container.getObj(ArticleService.class);
 
         ArticleRepository articleRepository = Ut.reflection.getFieldValue(articleService, "articleRepository", null);
 
         assertThat(articleRepository).isNotNull();
+    }
+
+    @Test
+    public void ControllerManager__scanMappings() {
+        ControllerManager.init(); // 클래스를 강제로 로딩되게 하려는 목적
+    }
+
+    @Test
+    public void ControllerManager__라우트정보_개수() {
+        Map<String, RouteInfo> routeInfos = ControllerManager.getRouteInfosForTest();
+
+        assertThat(routeInfos.size()).isEqualTo(2);
     }
 }

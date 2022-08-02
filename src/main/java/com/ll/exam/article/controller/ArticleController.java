@@ -10,12 +10,13 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping("usr/article/list") // usr/article/list/free와 관련된 요청을 처리하는 함수임을 알리는 것.
+    @GetMapping("/usr/article/list/{boardCode}") // /usr/article/list/free 와 같이 관련된 요청을 처리하는 함수이다.
     public void showList(){ // showList()는 usr/article/list/free 요청이 왔을 때 Get으로 실행되어야 하는 함수
 
     }
+    @GetMapping("/usr/article/detail/{boardCode}")
+    public void showDetail() {
 
-    public ArticleService getArticleServiceForTest() {
-        return articleService;
     }
+
 }
