@@ -1,5 +1,6 @@
 package com.ll.exam;
 
+import com.ll.exam.annotation.Autowired;
 import com.ll.exam.annotation.Controller;
 import com.ll.exam.annotation.Service;
 import com.ll.exam.article.controller.ArticleController;
@@ -7,10 +8,7 @@ import com.ll.exam.home.controller.HomeController;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Container {
     private static Map<Class, Object> objects; // articleController, homeController, articleService 3개 존재 중
@@ -23,6 +21,37 @@ public class Container {
     private static void scanComponents() {
         scanService();
         scanControllers();
+
+        resolveDependenciesAllComponents(); // 조립
+    }
+
+    private static void resolveDependenciesAllComponents() {
+        for( Class cls : objects.keySet()){
+            Object o = objects.get(cls);
+
+            resolveDependencies(o);
+        }
+    }
+
+    private static void resolveDependencies(Object o) {
+        Arrays.asList(o.getClass().getDeclaredFields())
+                .stream()
+                .filter(f -> f.isAnnotationPresent(Autowired.class)) // 어노테이션이 달린 필드(변수)만 걸러내라.
+                .map(field -> {
+                    field.setAccessible(true); // setAccessible (외부에서 접근 가능하게 )
+                    return field;
+                })
+
+                .forEach(field -> {
+                    Class cls = field.getType();
+                    Object dependency = objects.get(cls);
+
+                    try {
+                        field.set(o, dependency); // o객체 안에 있는 필드에다 같을 넣어주겠다
+                    } catch (IllegalAccessException e) {
+
+                    }
+                });
     }
 
     private static void scanService() {
