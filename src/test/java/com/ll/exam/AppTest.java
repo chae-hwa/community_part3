@@ -1,6 +1,9 @@
 package com.ll.exam;
 
+import com.ll.exam.article.controller.ArticleController;
 import org.junit.jupiter.api.Test;
+
+import java.awt.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,6 +12,13 @@ public class AppTest {
     public void junit_assertThat(){
         int rs = 10 + 20;
         assertThat(rs).isEqualTo(30);
+    }
+
+    @Test
+    public void ioc_articleController(){
+        ArticleController articleController = Container.getArticleController();
+
+        assertThat(articleController).isNotNull();
     }
 
 }
