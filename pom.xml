@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>comunity_part3</artifactId>
+    <artifactId>comm__3rd</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -55,8 +55,14 @@
             <version>2.13.3</version>
         </dependency>
 
-    </dependencies>
+        <!-- 컴포넌트 스캔 reflections -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.10.2</version>
+        </dependency>
 
+    </dependencies>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
